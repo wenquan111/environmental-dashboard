@@ -1,38 +1,37 @@
+/* app.css */
+
 .App {
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* Card styles */
+.MuiCard-root {
+  margin: 20px; /* Add margin around cards */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  border-radius: 8px; /* Rounded corners */
+  background-color: #ffffff; /* White background for cards */
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+/* Typography styles */
+.MuiTypography-h5 {
+  color: #3f51b5; /* Primary color for headings */
+  margin-bottom: 16px; /* Space below headings */
+}
+
+/* Button styles */
+.MuiButton-root {
+  margin-top: 10px; /* Space above buttons */
+}
+
+/* Responsive styles */
+@media (max-width: 600px) {
+  .MuiCard-root {
+      margin: 10px; /* Reduce margin on small screens */
   }
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* Ensure map container has proper height */
+.leaflet-container {
+  height: 100%;
+  width: 100%;
 }
