@@ -25,6 +25,10 @@ const EnvironmentalDashboard = () => {
   const [pieData, setPieData] = useState([30, 25, 20, 25]);
   const [heatmapPoints, setHeatmapPoints] = useState([]);
 
+  //added by wenquan:Congestion and noise pollution data status
+  const [congestionData, setCongestionData] = useState([60, 65, 70, 75]);
+  const [noiseData, setNoiseData] = useState([55, 60, 65, 70]);
+
   const handleMapClick = (e) => {
     const newPollutionData = pollutionData.map(() => Math.random() * 50 + 50);
     setPollutionData(newPollutionData);
@@ -36,6 +40,13 @@ const EnvironmentalDashboard = () => {
       Math.random() * 25 + 10,
     ];
     setPieData(newPieData);
+
+    //added by wenquan:Updated congestion and noise pollution data
+    const newCongestionData = congestionData.map(() => Math.random() * 20 + 60); //60~80%
+    setCongestionData(newCongestionData);
+
+    const newNoiseData = noiseData.map(() => Math.random() * 15 + 50); //50~65 dB
+    setNoiseData(newNoiseData);
 
     setHeatmapPoints([...heatmapPoints, [e.latlng.lat, e.latlng.lng]]);
     toast.success("Pollution data updated!");
@@ -89,6 +100,28 @@ const EnvironmentalDashboard = () => {
     }],
   };
 
+  //added by wenquan
+  const congestionChartData = {
+    labels: ["12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00"],
+    datasets: [{
+      label: "Traffic Congestion (%)",
+      data: congestionData,
+      borderColor: "#42a5f5",
+      fill: false,
+    }],
+  };
+
+  //added by wenquan
+  const noiseChartData = {
+    labels: ["12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00"],
+    datasets: [{
+      label: "Noise Pollution (dB)",
+      data: noiseData,
+      borderColor: "#ffa726",
+      fill: false,
+    }],
+  };
+
   return (
     <div className="container mx-auto p-4">
       <Grid container spacing={4}>
@@ -130,6 +163,24 @@ const EnvironmentalDashboard = () => {
             <CardContent>
               <Typography variant="h5" component="div">Pollution Distribution</Typography>
               <Pie data={pieChartData} />
+            </CardContent>
+          </Card>
+        </Grid>
+        {/* added by wenquan */}
+        <Grid item xs={12} md={6}>
+          <Card>
+            <CardContent>
+              <Typography variant="h5" component="div">congestion graphs</Typography>
+              <Line data={congestionChartData} />
+            </CardContent>
+          </Card>
+        </Grid>
+        {/* added by wenquan */}
+        <Grid item xs={12} md={6}>
+          <Card>
+            <CardContent>
+              <Typography variant="h5" component="div">Noise pollution charts</Typography>
+              <Line data={noiseChartData} />
             </CardContent>
           </Card>
         </Grid>
