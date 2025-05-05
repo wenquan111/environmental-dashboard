@@ -33,7 +33,6 @@ const theme = createTheme({
       secondary: '#5f6368',
     },
   },
-  // Specify fonts and title weights consistently.
   typography: {
     fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
     h1: { fontWeight: 500 },
@@ -206,8 +205,7 @@ const EnvironmentalDashboard = () => {
             height: 'calc(95vh - 16px)',
           }}
         >
-		// Left: Map area
-          <Grid item xs={14} md={5} sx={{ height: '100%' }}>
+          <Grid item xs={12} md={6} sx={{ height: '100%' }}>
             <Paper
               elevation={2}
               sx={{
@@ -229,9 +227,7 @@ const EnvironmentalDashboard = () => {
               </Box>
             </Paper>
           </Grid>
-		  
-		 // right side will be mall density and traffic data
-          <Grid item xs={14} md={5} sx={{ height: '100%' }}>
+          <Grid item xs={12} md={6} sx={{ height: '100%' }}>
             <Paper
               elevation={2}
               sx={{
