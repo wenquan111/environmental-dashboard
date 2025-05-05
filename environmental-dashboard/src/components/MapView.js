@@ -6,13 +6,6 @@ import L from "leaflet";
 import { Dialog, DialogTitle, DialogContent, Typography, Card, CardContent, Grid, Button } from '@mui/material';
 import { Line, Bar } from 'react-chartjs-2';
 
-// solve leaflet icon's problem
-delete L.Icon.Default.prototype._getIconUrl;
-L.Icon.Default.mergeOptions({
-  iconRetinaUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon-2x.png',
-  iconUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png',
-  shadowUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png',
-});
 
 const customIcon = L.icon({
   iconUrl: "/shopping-mall.png",
@@ -202,7 +195,7 @@ const generateMockData = (base = 50, variance = 20, colors = { main: 'rgb(75, 19
 
 // Generate specific data based on location
 const generateDataForLocation = (lat, lon) => {
-  // Random but seemingly regular data
+  // Random but seemingly regular data, as supervisor said we can use mock data if it looks like real
   const baseCongestion = Math.abs(lat * 10 + lon) % 50 + 30;
   const baseMallDensity = Math.abs(lat * 5 + lon * 2) % 70 + 20;
   const baseAirQuality = Math.abs(lat * 3 + lon * 4) % 40 + 60;
@@ -242,7 +235,7 @@ const MapClickHandler = ({ onMapClick }) => {
   return null;
 };
 
-// data dialog when click on the map
+// data dialog when click on the map, The three cards correspond to Traffic Congestion, Mall Density and Air Quality.
 const DataDialog = ({ open, onClose, position, data }) => {
   if (!open || !data || !position) return null;
 
@@ -287,6 +280,7 @@ const DataDialog = ({ open, onClose, position, data }) => {
           </Button>
         </div>
       </DialogTitle>
+	  //The current timestamp is centred in the top row. Split three chart cards into three equal-width columns using MUI's Grid component.
       <DialogContent sx={{ p: 3 }}>
         <Typography variant="subtitle1" sx={{ mb: 2, textAlign: 'center', fontWeight: 500, color: '#555' }}>
           Data generated at: {new Date().toLocaleTimeString()}
@@ -476,15 +470,15 @@ const MapView = ({ onPopupClick, onTrafficPopupClick }) => {
 
         {/* add map clicker */}
         <MapClickHandler onMapClick={handleMapClick} />
-
-        {/* Use brighter coloured map tile sources */}
+		
+       {/* Use brighter coloured map tile sources.reference website from https://www.openstreetmap.org/#map=13/-33.91638/151.20243 and github ： https://github.com/CartoDB/basemap-styles*/}
         <TileLayer
           url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
           subdomains="abcd"
           maxZoom={MAX_ZOOM}
         />
-
+		
         {/* Mall Marker */}
         {geoJsonData &&
           geoJsonData.features
